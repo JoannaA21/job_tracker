@@ -1,12 +1,10 @@
 import { useState } from "react";
-import "./App.css";
+import "./index.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>Job Tracker App initial setup</div>
+      <div className="text-4xl font-bold">Job Tracker App initial setup</div>
     </>
   );
 }
