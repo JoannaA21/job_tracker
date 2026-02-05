@@ -5,6 +5,7 @@ const job_applications = async () => {
   const collectionRef = collection(db, "job_application");
   try {
     const data = await getDocs(collectionRef);
+
     const list = data.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
