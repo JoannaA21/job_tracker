@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import job_applications from "../api/job_applications";
+import { job_applications } from "../api/job_applications";
 
 const ListView = () => {
   const [applications, setApplications] = useState([]);

@@ -1,7 +1,7 @@
 import { db } from "../config/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, addDoc } from "firebase/firestore";
 
-const job_applications = async () => {
+export const job_applications = async () => {
   const collectionRef = collection(db, "job_application");
   try {
     const data = await getDocs(collectionRef);
@@ -12,8 +12,18 @@ const job_applications = async () => {
     }));
     return list;
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data:", err);
   }
 };
 
-export default job_applications;
+export const add_job_application = async (applicationData) => {
+  const collectionRef = collection(db, "job_application");
+
+  try {
+    const data = await addDoc(collectionRef, applicationData);
+    console.log("Document written with ID: ", data.id);
+    return data.id;
+  } catch (err) {
+    console.error("Error in adding new job application", err);
+  }
+};

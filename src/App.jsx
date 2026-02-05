@@ -1,16 +1,19 @@
 import { useState } from "react";
 import "./index.css";
-import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
-import job_applications from "./api/job_applications";
+import Dashboard from "./pages/Dashboard";
+import Add_job_application from "./pages/Add_job_application";
 
 function App() {
   return (
     <>
-      <div className="text-4xl font-bold">Job Tracker App initial setup</div>
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/add-job-application"
+            element={<Add_job_application />}
+          />
         </Routes>
       </Router>
     </>
