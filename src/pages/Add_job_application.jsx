@@ -75,6 +75,7 @@ const Add_job_application = () => {
         <p className="text-4xl">Form to add a job application</p>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mx-4">
           <label className="text-xl font-semibold">Company</label>
+          {errors.company && <p className="text-red-500">{errors.company}</p>}
 
           <input
             name="company"
@@ -83,7 +84,6 @@ const Add_job_application = () => {
             value={newApplication.company}
             className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
           />
-          {errors.name && <p className="text-red-500">{errors.company}</p>}
 
           <label className="text-xl font-semibold">Contact person</label>
           <input
@@ -93,6 +93,7 @@ const Add_job_application = () => {
             value={newApplication.contact_person}
             className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
           />
+          {errors.role && <p className="text-red-500">{errors.role}</p>}
 
           <label className="text-xl font-semibold">Role</label>
           <input
@@ -102,7 +103,6 @@ const Add_job_application = () => {
             value={newApplication.role}
             className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
           />
-          {errors.name && <p className="text-red-500">{errors.role}</p>}
 
           <label className="text-xl font-semibold">Salary</label>
           <input
@@ -119,7 +119,6 @@ const Add_job_application = () => {
             value={newApplication.location}
             className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
           >
-            <option value="">Select location</option>
             <option value="onsite">Onsite</option>
             <option value="remote">Remote</option>
             <option value="hybrid">Hybrid</option>
@@ -132,7 +131,6 @@ const Add_job_application = () => {
             value={newApplication.status}
             className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
           >
-            <option value="">Select status</option>
             <option value="applied">Applied</option>
             <option value="interview">Interview</option>
             <option value="rejected">Rejected</option>
