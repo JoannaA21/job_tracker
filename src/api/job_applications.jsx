@@ -31,7 +31,7 @@ export const add_job_application = async (applicationData) => {
   try {
     const data = await addDoc(collectionRef, applicationData);
     console.log("Document written with ID: ", data.id);
-    return data.id;
+    return { id: data.id, ...applicationData };
   } catch (err) {
     console.error("Error in adding new job application", err);
   }

@@ -1,6 +1,7 @@
-import { useState, useReducer } from "react";
+import { useState, useContext } from "react";
 import { add_job_application } from "../api/job_applications";
 import { useNavigate } from "react-router";
+import { ApplicationsContext, ACTIONS } from "../context/ApplicationsContext";
 
 const Add_job_application = () => {
   const [newApplication, setNewApplication] = useState({
@@ -18,6 +19,7 @@ const Add_job_application = () => {
     updated_timestamp: null,
   });
 
+  const { dispatch } = useContext(ApplicationsContext);
   const [errors, setErrors] = useState({
     company: "",
     role: "",
@@ -33,7 +35,8 @@ const Add_job_application = () => {
     });
 
     try {
-      await add_job_application(newApplication);
+      const newData = await add_job_application(newApplication);
+      dispatch({ type: ACTIONS.ADD_APPLICATION, payload: newData });
       navigate("/");
     } catch (err) {
       console.error("Error adding new applicaiton:", err);
@@ -62,7 +65,7 @@ const Add_job_application = () => {
     setNewApplication((prev) => ({
       ...prev,
       [name]: value,
-      created_timestamp: Date.now(),
+      created_timestamp: prev.created_timestamp || Date.now(),
       updated_timestamp: Date.now(),
     }));
 
