@@ -36,7 +36,15 @@ export const reducer = (applications, action) => {
   switch (action.type) {
     case ACTIONS.VIEW_APPLICATIONS:
       return action.payload;
+    case ACTIONS.ADD_APPLICATION:
+      return [...applications, action.payload];
+    case ACTIONS.UPDATE_APPLICATION:
+      return; //WORK ON THIS!!!!!!!!!!!!!**************************************
+    case ACTIONS.DELETE_APPLICATION:
+      return [applications.filter((job) => job.id !== action.payload)];
     default:
       return applications;
   }
 };
+
+//WORK ON THE LOGIC FOR UPDATE
