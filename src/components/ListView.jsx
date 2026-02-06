@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { job_applications } from "../api/job_applications";
 
-const ListView = () => {
+const ListView = ({ job_applications }) => {
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const ListView = () => {
           <p>{job.id}</p>
           <p>
             {job.company} - {job.role} - {job.status} - {job.location} -{" "}
-            {String(job.date_applied)}
+            {new Date(job.date_applied).toLocaleDateString()}
           </p>
         </div>
       ))}

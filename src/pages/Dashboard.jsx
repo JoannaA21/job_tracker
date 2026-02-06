@@ -1,19 +1,18 @@
+import { useState, useReducer } from "react";
 import ListView from "../components/ListView";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
+import { job_applications, add_job_application } from "../api/job_applications";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  // const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <>
       <div>
-        <button
-          className="border-2 bg-blue-500"
-          onClick={() => navigate("/add-job-application")}
-          to="/add-job-application"
-        >
+        <Link to="/add-job-application" className="border-2 bg-blue-500">
           Add an Application
-        </button>
-        <ListView />
+        </Link>
+
+        <ListView job_applications={job_applications} />
       </div>
     </>
   );
