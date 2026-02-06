@@ -1,9 +1,9 @@
-import { useState } from "react";
 import "./index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { ApplicationsProvider } from "./context/ApplicationsContext";
 import Dashboard from "./pages/Dashboard";
 import Add_job_application from "./pages/Add_job_application";
+import DetailView from "./pages/DetailView";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
             path="/add-job-application"
             element={<Add_job_application />}
           />
+          <Route path="/detailview/:id" element={<DetailView />} />
         </Routes>
       </Router>
     </ApplicationsProvider>

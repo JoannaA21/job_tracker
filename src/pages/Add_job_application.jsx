@@ -19,12 +19,12 @@ const Add_job_application = () => {
     updated_timestamp: null,
   });
 
-  const { dispatch } = useContext(ApplicationsContext);
   const [errors, setErrors] = useState({
     company: "",
     role: "",
   });
 
+  const { dispatch } = useContext(ApplicationsContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

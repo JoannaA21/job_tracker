@@ -1,4 +1,8 @@
+import { useNavigate, Link } from "react-router";
+
 const ListView = ({ applications }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border border-gray-200 text-left text-sm">
@@ -13,7 +17,11 @@ const ListView = ({ applications }) => {
         </thead>
         <tbody>
           {applications.map((job) => (
-            <tr key={job.id} className="hover:bg-gray-50">
+            <tr
+              key={job.id}
+              className="hover:bg-gray-100"
+              onClick={() => navigate(`/detailview/${job.id}`)}
+            >
               <td className="px-4 py-2 border-b">{job.company}</td>
               <td className="px-4 py-2 border-b">{job.role}</td>
               <td
