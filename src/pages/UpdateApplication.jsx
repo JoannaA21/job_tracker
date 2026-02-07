@@ -91,7 +91,32 @@ const UpdateApplication = () => {
   return (
     <>
       <div>
-        <p className="text-4xl">Form to add a job application</p>
+        <div className="flex justify-between p-2">
+          <p className="text-4xl">Update job application</p>
+          <button
+            className="flex border-2 rounded-lg p-2 "
+            onClick={() => navigate(-1)}
+          >
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 12h14M5 12l4-4m-4 4 4 4"
+              />
+            </svg>
+            back
+          </button>
+        </div>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mx-4">
           <label className="text-xl font-semibold">Company</label>
           {errors.company && <p className="text-red-500">{errors.company}</p>}
