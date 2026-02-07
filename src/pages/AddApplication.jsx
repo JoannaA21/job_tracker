@@ -3,7 +3,7 @@ import { add_job_application } from "../api/job_applications";
 import { useNavigate } from "react-router";
 import { ApplicationsContext, ACTIONS } from "../context/ApplicationsContext";
 
-const Add_job_application = () => {
+const AddApplication = () => {
   const [newApplication, setNewApplication] = useState({
     company: "",
     contact_person: "",
@@ -179,4 +179,4 @@ const Add_job_application = () => {
   );
 };
 
-export default Add_job_application;
+export default AddApplication;

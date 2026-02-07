@@ -2,8 +2,9 @@ import "./index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { ApplicationsProvider } from "./context/ApplicationsContext";
 import Dashboard from "./pages/Dashboard";
-import Add_job_application from "./pages/Add_job_application";
+import AddApplication from "./pages/AddApplication";
 import DetailView from "./pages/DetailView";
+import UpdateApplication from "./pages/UpdateApplication";
 
 function App() {
   return (
@@ -11,11 +12,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route
-            path="/add-job-application"
-            element={<Add_job_application />}
-          />
+          <Route path="/add-application" element={<AddApplication />} />
           <Route path="/detailview/:id" element={<DetailView />} />
+          <Route
+            path="/update-application/:id"
+            element={<UpdateApplication />}
+          />
         </Routes>
       </Router>
     </ApplicationsProvider>

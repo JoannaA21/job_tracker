@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <Link to="/add-job-application" className="border-2 bg-blue-500">
+        <Link to="/add-application" className="border-2 bg-blue-500">
           Add an Application
         </Link>
         <ListView applications={applications} />
