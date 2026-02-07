@@ -21,6 +21,7 @@ export const job_applications = async () => {
     return list;
   } catch (err) {
     console.error("Error fetching data:", err);
+    return [];
   }
 };
 

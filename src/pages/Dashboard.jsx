@@ -5,6 +5,7 @@ import { Link } from "react-router";
 
 const Dashboard = () => {
   const { applications } = useContext(ApplicationsContext);
+
   return (
     <>
       <div>

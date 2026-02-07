@@ -41,7 +41,7 @@ export const reducer = (applications, action) => {
     case ACTIONS.UPDATE_APPLICATION:
       return; //WORK ON THIS!!!!!!!!!!!!!**************************************
     case ACTIONS.DELETE_APPLICATION:
-      return [applications.filter((job) => job.id !== action.payload)];
+      return applications.filter((job) => job.id !== action.payload);
     default:
       return applications;
   }
