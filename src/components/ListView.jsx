@@ -5,6 +5,7 @@ const ListView = ({ applications }) => {
   const navigate = useNavigate();
   const [statusFilter, setStatusFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const statusOptions = [
     { value: "all", label: "Status" },
@@ -25,14 +26,27 @@ const ListView = ({ applications }) => {
       const statusMatch = statusFilter === "all" || job.status === statusFilter;
       const locationMatch =
         locationFilter === "all" || job.location === locationFilter;
-      return statusMatch && locationMatch;
+
+      const searchMatch =
+        !searchTerm ||
+        job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.role.toLowerCase().includes(searchTerm.toLowerCase());
+      return statusMatch && locationMatch && searchMatch;
     });
-  }, [applications, statusFilter, locationFilter]);
+  }, [applications, statusFilter, locationFilter, searchTerm]);
 
   return (
     <div>
       {/* Filter Bar */}
       <div className="mb-6 flex items-center gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+        <input
+          type="text"
+          placeholder="Search company or role..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 w-72"
+        />
+
         <label className="text-sm font-medium text-gray-700">Filter by:</label>
         <select
           value={statusFilter}
@@ -56,9 +70,7 @@ const ListView = ({ applications }) => {
             </option>
           ))}
         </select>
-        <span className="text-sm text-gray-500">
-          {filteredApplications.length} of {applications.length} applications
-        </span>
+
         {statusFilter !== "all" && locationFilter !== "all" && (
           <button
             onClick={() => setStatusFilter("all")}
