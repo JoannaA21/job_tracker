@@ -40,7 +40,7 @@ const ListView = ({ applications }) => {
   }, [applications, statusFilter, locationFilter, searchTerm]);
 
   return (
-    <div className="mb-6 bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+    <div className="mb-6 bg-darkgray p-3 sm:p-4 rounded-lg border border-gray-200">
       {/* Filter Bar */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
         <input

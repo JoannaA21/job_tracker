@@ -7,7 +7,7 @@ const Dashboard = () => {
   const { applications } = useContext(ApplicationsContext);
 
   return (
-    <div className="min-h-dvh w-full bg-gray-50 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-dvh w-full p-4 sm:p-6 lg:p-8 ">
       {" "}
       {/* Light bg, proper padding */}
       <div className="max-w-7xl mx-auto">
