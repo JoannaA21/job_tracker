@@ -251,7 +251,7 @@ const AddApplication = () => {
           <div className="col-span-full flex justify-center mt-8">
             <button
               type="submit"
-              className="w-full max-w-sm bg-gradient-to-r from-[#2d5a5a] to-[#1e4a4a] hover:from-[#1e4a4a] hover:to-[#164e4e] text-white py-4 px-8 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-lg"
+              className="w-full max-w-sm bg-light-tangerine hover:bg-tangerine border-2 border-tangerine py-4 px-8 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-lg"
             >
               Submit Application
             </button>
