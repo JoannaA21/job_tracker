@@ -74,13 +74,9 @@ const AddApplication = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <div className="flex justify-between p-2">
-          <p className="text-4xl">Form to add a job application</p>
-          <button
-            className="flex border-2 rounded-lg p-2 "
-            onClick={() => navigate(-1)}
-          >
+          <button onClick={() => navigate(-1)}>
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
@@ -95,11 +91,11 @@ const AddApplication = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M5 12h14M5 12l4-4m-4 4 4 4"
+                d="m15 19-7-7 7-7"
               />
             </svg>
-            back
           </button>
+          <p className="text-4xl">Form to add a job application</p>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mx-4">
           <label className="text-xl font-semibold">Company</label>

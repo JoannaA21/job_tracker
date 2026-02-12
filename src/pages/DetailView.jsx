@@ -53,36 +53,31 @@ const DetailView = () => {
   return (
     <>
       <div>
-        <div className="flex justify-between p-2">
-          <p className="text-4xl"> Job Detail View</p>
-          <div className="flex space-x-2">
-            <button
-              className="flex border-2 rounded-lg p-2"
-              onClick={() => navigate(-1)}
+        <div className="flex">
+          <button onClick={() => navigate(-1)}>
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-6 h-6 text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 12h14M5 12l4-4m-4 4 4 4"
-                />
-              </svg>
-              back
-            </button>
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m15 19-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <div className="flex justify-end">
             {/* button for UPDATE */}
             <button
               onClick={() => navigate(`/update-application/${id}`)}
-              className="flex border-2 rounded-lg p-2"
+              className="flex p-2"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"
@@ -104,7 +99,7 @@ const DetailView = () => {
               Edit
             </button>
             {/* Button for DELETE */}
-            <button onClick={onOpenModal}>
+            <button onClick={onOpenModal} className="flex p-2">
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white hover:text-red-500"
                 aria-hidden="true"
@@ -122,9 +117,13 @@ const DetailView = () => {
                   d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
                 />
               </svg>
+              Delete
             </button>
           </div>
         </div>
+
+        <p className="text-4xl">{application.role}</p>
+
         <div className="flex flex-col space-y-2">
           <p>Company: {application?.company || "Loading..."}</p>
           <p>Contact person: {application?.contact_person || "N/A"}</p>

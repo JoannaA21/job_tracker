@@ -7,6 +7,7 @@ const ListView = ({ applications }) => {
   const [locationFilter, setLocationFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
+  //STATUS: For select attribute
   const statusOptions = [
     { value: "all", label: "Status" },
     { value: "applied", label: "Applied" },
@@ -14,6 +15,8 @@ const ListView = ({ applications }) => {
     { value: "rejected", label: "Rejected" },
     { value: "offer", label: "Offer" },
   ];
+
+  //LOCATION: For select attribute
   const locationOptions = [
     { value: "all", label: "Location" },
     { value: "onsite", label: "Onsite" },
@@ -21,6 +24,7 @@ const ListView = ({ applications }) => {
     { value: "hybrid", label: "Hybrid" },
   ];
 
+  //For select filter and search filter
   const filteredApplications = useMemo(() => {
     return applications.filter((job) => {
       const statusMatch = statusFilter === "all" || job.status === statusFilter;
@@ -36,54 +40,62 @@ const ListView = ({ applications }) => {
   }, [applications, statusFilter, locationFilter, searchTerm]);
 
   return (
-    <div>
+    <div className="mb-6 bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
       {/* Filter Bar */}
-      <div className="mb-6 flex items-center gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
         <input
           type="text"
           placeholder="Search company or role..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 w-72"
+          className="w-full sm:w-80 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine"
         />
 
         <label className="text-sm font-medium text-gray-700">Filter by:</label>
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-32"
-        >
-          {statusOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <select
-          value={locationFilter}
-          onChange={(e) => setLocationFilter(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-32"
-        >
-          {locationOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-
-        {statusFilter !== "all" && locationFilter !== "all" && (
-          <button
-            onClick={() => setStatusFilter("all")}
-            className="text-sm text-blue-600 hover:text-blue-800 font-medium ml-auto"
+        <div className="flex space-x-4">
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
           >
-            Clear filter
-          </button>
-        )}
+            {statusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
+          >
+            {locationOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {statusFilter !== "all" ||
+          (locationFilter !== "all" && (
+            <button
+              onClick={() => {
+                setStatusFilter("all");
+                setLocationFilter("all");
+              }}
+              className="text-sm text-light-600 hover:text-blue-800 font-medium ml-auto"
+            >
+              Clear filter
+            </button>
+          ))}
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-200 text-left text-sm">
+      <div className="overflow-x-auto lg:overflow-visible">
+        {" "}
+        <table className="hidden min-w-full border border-gray-200 text-left text-sm lg:table">
+          {" "}
           <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 border-b">Company</th>
@@ -135,6 +147,78 @@ const ListView = ({ applications }) => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="lg:hidden divide-y divide-gray-200">
+        {filteredApplications.length > 0 ? (
+          filteredApplications.map((job) => (
+            <div
+              key={job.id}
+              className="p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 bg-white"
+              onClick={() => navigate(`/detailview/${job.id}`)}
+            >
+              {/* Company & Role - Prominent */}
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-semibold text-gray-900 text-base">
+                    {job.company}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{job.role}</p>
+                </div>
+                <div className="status-badge px-2 py-1 rounded-full text-xs font-medium">
+                  {/* Your existing status color classes */}
+                  <span
+                    className={`
+                ${job.status === "applied" && "bg-blue-100 text-blue-800"} 
+                ${job.status === "interview" && "bg-yellow-100 text-yellow-800"}
+                ${job.status === "rejected" && "bg-red-100 text-red-800"}
+                ${job.status === "offer" && "bg-green-100 text-green-800"}
+              `}
+                  >
+                    {job.status}
+                  </span>
+                </div>
+              </div>
+
+              {/* Secondary Info Stack */}
+              <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-2">
+                <div>
+                  <span className="font-medium text-gray-900">Location:</span>{" "}
+                  {job.location}
+                </div>
+                <div>
+                  <span className="font-medium text-gray-900">Applied:</span>{" "}
+                  {job.date_applied?.toDate
+                    ? job.date_applied.toDate().toLocaleDateString()
+                    : job.date_applied}
+                </div>
+              </div>
+
+              {/* Action chevron */}
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-xs text-gray-400">Tap for details</span>
+                <svg
+                  className="w-4 h-4 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="p-8 text-center text-gray-500 bg-gray-50 rounded-lg">
+            No applications match your filter
+          </div>
+        )}
       </div>
     </div>
   );

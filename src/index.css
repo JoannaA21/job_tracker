@@ -2,3 +2,10 @@
 @import "tailwindcss";
 
 /* You can add your own custom styles below */
+@theme {
+  --color-lightgray: #eaefef;
+  --color-darkgray: #bfc9d1;
+  --color-darkergray: #25343f;
+  --color-light-tangerine: #e7a674;
+  --color-tangerine: #ff9b51;
+}
