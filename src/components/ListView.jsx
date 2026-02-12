@@ -42,60 +42,71 @@ const ListView = ({ applications }) => {
   return (
     <div className="mb-6 bg-darkgray p-3 sm:p-4 rounded-lg border border-gray-200">
       {/* Filter Bar */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <input
-          type="text"
-          placeholder="Search company or role..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full sm:w-80 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine"
-        />
-
-        <label className="text-sm font-medium text-gray-700">Filter by:</label>
-        <div className="flex space-x-4">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
-          >
-            {statusOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <select
-            value={locationFilter}
-            onChange={(e) => setLocationFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
-          >
-            {locationOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+      <div className="space-y-4">
+        {/* Search - Full Width */}
+        <div className="w-full">
+          <input
+            type="text"
+            placeholder="Search company or role..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine"
+          />
         </div>
 
-        {statusFilter !== "all" ||
-          (locationFilter !== "all" && (
-            <button
-              onClick={() => {
-                setStatusFilter("all");
-                setLocationFilter("all");
-              }}
-              className="text-sm text-light-600 hover:text-blue-800 font-medium ml-auto"
+        {/* Filter Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Filter Label + Clear Button */}
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-medium text-gray-700">
+              Filter by:
+            </label>
+
+            {(statusFilter !== "all" || locationFilter !== "all") && (
+              <button
+                onClick={() => {
+                  setStatusFilter("all");
+                  setLocationFilter("all");
+                }}
+                className="text-sm bg-light-tangerine hover:bg-tangerine border-2 border-tangerine rounded-lg font-medium ml-4"
+              >
+                Clear filter
+              </button>
+            )}
+          </div>
+
+          {/* Dropdowns */}
+          <div className="flex gap-4 mb-2">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
             >
-              Clear filter
-            </button>
-          ))}
+              {statusOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
+            >
+              {locationOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* Table */}
       <div className="overflow-x-auto lg:overflow-visible">
-        {" "}
         <table className="hidden min-w-full border border-gray-200 text-left text-sm lg:table">
-          {" "}
           <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 border-b">Company</th>

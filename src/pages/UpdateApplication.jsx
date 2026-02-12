@@ -91,10 +91,10 @@ const UpdateApplication = () => {
   return (
     <>
       <div>
-        <div className="flex justify-between p-2">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-300">
           <button
-            className="flex border-2 rounded-lg p-2 "
             onClick={() => navigate(-1)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white"
@@ -114,106 +114,165 @@ const UpdateApplication = () => {
               />
             </svg>
           </button>
+          <p className="text-2xl flex-1 text-center">Edit application</p>
+          <div className="w-6"></div> {/* Spacer for symmetry */}
         </div>
-        <p className="text-4xl">Update job application</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mx-4">
-          <label className="text-xl font-semibold">Company</label>
-          {errors.company && <p className="text-red-500">{errors.company}</p>}
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4 p-6"
+        >
+          {/* Column 1 */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Company
+              </label>
+              {errors.company && (
+                <p className="text-red-500 text-sm mb-2">{errors.company}</p>
+              )}
 
-          <input
-            name="company"
-            type="text"
-            onChange={handleChange}
-            value={updatedApplication.company}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
+              <input
+                name="company"
+                type="text"
+                onChange={handleChange}
+                value={updatedApplication.company}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
 
-          <label className="text-xl font-semibold">Contact person</label>
-          <input
-            name="contact_person"
-            type="text"
-            onChange={handleChange}
-            value={updatedApplication.contact_person}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          {errors.role && <p className="text-red-500">{errors.role}</p>}
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Contact person
+              </label>
+              <input
+                name="contact_person"
+                type="text"
+                onChange={handleChange}
+                value={updatedApplication.contact_person}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
 
-          <label className="text-xl font-semibold">Role</label>
-          <input
-            name="role"
-            type="text"
-            onChange={handleChange}
-            value={updatedApplication.role}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
+            <div>
+              <label className="block text-lg font-semibold mb-2">Role</label>
+              {errors.role && <p className="text-red-500">{errors.role}</p>}
 
-          <label className="text-xl font-semibold">Salary</label>
-          <input
-            name="salary"
-            type="number"
-            onChange={handleChange}
-            value={updatedApplication.salary}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          <label className="text-xl font-semibold">Location</label>
-          <select
-            name="location"
-            onChange={handleChange}
-            value={updatedApplication.location}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          >
-            <option value="onsite">Onsite</option>
-            <option value="remote">Remote</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
+              <input
+                name="role"
+                type="text"
+                onChange={handleChange}
+                value={updatedApplication.role}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
 
-          <label className="text-xl font-semibold">Status</label>
-          <select
-            name="status"
-            onChange={handleChange}
-            value={updatedApplication.status}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          >
-            <option value="applied">Applied</option>
-            <option value="interview">Interview</option>
-            <option value="rejected">Rejected</option>
-            <option value="offer">Offer</option>
-          </select>
-          <label className="text-xl font-semibold">Date Applied</label>
-          <input
-            name="date_applied"
-            type="date"
-            onChange={handleChange}
-            value={updatedApplication.date_applied}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          <label className="text-xl font-semibold">Deadline</label>
-          <input
-            name="deadline"
-            type="date"
-            onChange={handleChange}
-            value={updatedApplication.deadline}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          <label className="text-xl font-semibold">Job link</label>
-          <input
-            name="job_link"
-            type="text"
-            onChange={handleChange}
-            value={updatedApplication.job_link}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          <label className="text-xl font-semibold">Note</label>
-          <textarea
-            name="note"
-            onChange={handleChange}
-            value={updatedApplication.note}
-            className="border mb-1 p-2 rounded-lg dark:text-black max-w-md"
-          />
-          <button className="max-w-sm bg-blue-500 hover:bg-blue-700 text-white py-4 px-6 rounded text-center hover:-translate-y-2 duration-300 duration-300">
-            Submit
-          </button>
+            <div>
+              <label className="block text-lg font-semibold mb-2">Status</label>
+              <select
+                name="status"
+                onChange={handleChange}
+                value={updatedApplication.status}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              >
+                <option value="applied">Applied</option>
+                <option value="interview">Interview</option>
+                <option value="rejected">Rejected</option>
+                <option value="offer">Offer</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Location
+              </label>
+              <select
+                name="location"
+                onChange={handleChange}
+                value={updatedApplication.location}
+                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+              >
+                <option value="onsite">Onsite</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Column 2 */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-lg font-semibold mb-2">Salary</label>
+              <input
+                name="salary"
+                type="number"
+                onChange={handleChange}
+                value={updatedApplication.salary}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-lg font-semibold mb-2">
+                  Date Applied
+                </label>
+                <input
+                  name="date_applied"
+                  type="date"
+                  onChange={handleChange}
+                  value={updatedApplication.date_applied}
+                  className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-lg font-semibold mb-2">
+                  Deadline
+                </label>
+                <input
+                  name="deadline"
+                  type="date"
+                  onChange={handleChange}
+                  value={updatedApplication.deadline}
+                  className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Job link
+              </label>
+              <input
+                name="job_link"
+                type="text"
+                onChange={handleChange}
+                value={updatedApplication.job_link}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold mb-2">Note</label>
+              <textarea
+                name="note"
+                onChange={handleChange}
+                value={updatedApplication.note}
+                rows={6}
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
+              />
+            </div>
+
+            <div className="col-span-full flex justify-center mt-8">
+              <button
+                type="submit"
+                className="w-full max-w-sm bg-gradient-to-r from-[#2d5a5a] to-[#1e4a4a] hover:from-[#1e4a4a] hover:to-[#164e4e] text-white py-4 px-8 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-lg"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </>

@@ -75,8 +75,11 @@ const AddApplication = () => {
   return (
     <>
       <div className="">
-        <div className="flex justify-between p-2">
-          <button onClick={() => navigate(-1)}>
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-300">
+          <button
+            onClick={() => navigate(-1)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
@@ -95,8 +98,10 @@ const AddApplication = () => {
               />
             </svg>
           </button>
-          <p className="text-4xl">Form to add a job application</p>
+          <p className="text-2xl flex-1 text-center">Add application</p>
+          <div className="w-6"></div> {/* Spacer for symmetry */}
         </div>
+
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4 p-6"
@@ -104,7 +109,7 @@ const AddApplication = () => {
           {/* Column 1 */}
           <div className="space-y-6">
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Company
               </label>
               {errors.company && (
@@ -115,12 +120,12 @@ const AddApplication = () => {
                 type="text"
                 onChange={handleChange}
                 value={newApplication.company}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               />
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Contact person
               </label>
               <input
@@ -128,14 +133,12 @@ const AddApplication = () => {
                 type="text"
                 onChange={handleChange}
                 value={newApplication.contact_person}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               />
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
-                Role
-              </label>
+              <label className="block text-lg font-semibold mb-2">Role</label>
               {errors.role && (
                 <p className="text-[#dc2626] text-sm mb-2">{errors.role}</p>
               )}
@@ -144,19 +147,17 @@ const AddApplication = () => {
                 type="text"
                 onChange={handleChange}
                 value={newApplication.role}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               />
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
-                Status
-              </label>
+              <label className="block text-lg font-semibold mb-2">Status</label>
               <select
                 name="status"
                 onChange={handleChange}
                 value={newApplication.status}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               >
                 <option value="applied">Applied</option>
                 <option value="interview">Interview</option>
@@ -166,14 +167,14 @@ const AddApplication = () => {
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Location
               </label>
               <select
                 name="location"
                 onChange={handleChange}
                 value={newApplication.location}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               >
                 <option value="onsite">Onsite</option>
                 <option value="remote">Remote</option>
@@ -182,24 +183,21 @@ const AddApplication = () => {
             </div>
           </div>
 
-          {/* Column 2 */}
           <div className="space-y-6">
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
-                Salary
-              </label>
+              <label className="block text-lg font-semibold mb-2">Salary</label>
               <input
                 name="salary"
                 type="number"
                 onChange={handleChange}
                 value={newApplication.salary}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+                <label className="block text-lg font-semibold mb-2">
                   Date Applied
                 </label>
                 <input
@@ -207,11 +205,11 @@ const AddApplication = () => {
                   type="date"
                   onChange={handleChange}
                   value={newApplication.date_applied}
-                  className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                  className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
                 />
               </div>
               <div>
-                <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+                <label className="block text-lg font-semibold mb-2">
                   Deadline
                 </label>
                 <input
@@ -219,13 +217,13 @@ const AddApplication = () => {
                   type="date"
                   onChange={handleChange}
                   value={newApplication.deadline}
-                  className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                  className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Job link
               </label>
               <input
@@ -233,14 +231,12 @@ const AddApplication = () => {
                 type="url"
                 onChange={handleChange}
                 value={newApplication.job_link}
-                className="w-full p-4 border border-[#2d5a5a]/30 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#2d5a5a] focus:border-[#2d5a5a] text-[#1f2a44]"
+                className="w-full p-4 border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-black focus:border-gray-400"
               />
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-[#1f2a44] mb-2">
-                Note
-              </label>
+              <label className="block text-lg font-semibold mb-2">Note</label>
               <textarea
                 name="note"
                 onChange={handleChange}
