@@ -74,7 +74,7 @@ const AddApplication = () => {
 
   return (
     <>
-      <div className="">
+      <div className="m-6">
         <div className="flex items-center justify-between px-4 py-2 border-b border-gray-300">
           <button
             onClick={() => navigate(-1)}
@@ -98,7 +98,7 @@ const AddApplication = () => {
               />
             </svg>
           </button>
-          <p className="text-2xl flex-1 text-center">Add application</p>
+          <p className="text-3xl font-bold">Add application</p>
           <div className="w-6"></div> {/* Spacer for symmetry */}
         </div>
 

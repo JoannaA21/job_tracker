@@ -5,12 +5,16 @@ import Dashboard from "./pages/Dashboard";
 import AddApplication from "./pages/AddApplication";
 import DetailView from "./pages/DetailView";
 import UpdateApplication from "./pages/UpdateApplication";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
     <ApplicationsProvider>
       <Router>
         <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/add-application" element={<AddApplication />} />
           <Route path="/detailview/:id" element={<DetailView />} />
