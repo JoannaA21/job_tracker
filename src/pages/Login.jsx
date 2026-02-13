@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { auth } from "../config/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "../config/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
 
 const Login = () => {
@@ -45,6 +45,20 @@ const Login = () => {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      console.log("Successful login");
+      navigate("/");
+    } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        console.log("User closed popup - normal behavior");
+        return; // Don't treat as error
+      }
+      console.error("Error logging in with google", err);
     }
   };
 
@@ -119,6 +133,7 @@ const Login = () => {
           </button>
         </form>
 
+        <button onClick={signInWithGoogle}>Sign In with Google</button>
         {/* Login Link */}
         <p className="text-center mt-6 text-sm text-gray-500">
           Don't have an account yet?{" "}
@@ -126,7 +141,7 @@ const Login = () => {
             href="/signup"
             className="font-semibold text-gray-700 hover:text-black"
           >
-            Login
+            Sign up
           </a>
         </p>
       </div>

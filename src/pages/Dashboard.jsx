@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import ListView from "../components/ListView";
 import { ApplicationsContext } from "../context/ApplicationsContext";
 import { auth } from "../config/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router";
 
 const Dashboard = () => {
@@ -10,6 +10,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const { applications } = useContext(ApplicationsContext);
   const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (err) {
+      console.error("Error logging out", err);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -48,7 +57,7 @@ const Dashboard = () => {
             <span className="text-[#64748b]">Hi, {user.email}</span>
 
             <button
-              onClick={() => auth.signOut().then(() => navigate("/login"))}
+              onClick={logout}
               className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-all duration-200"
             >
               Logout
