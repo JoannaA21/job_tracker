@@ -1,5 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import { job_applications } from "../api/job_applications";
+import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const ApplicationsContext = createContext();
 
@@ -7,16 +9,21 @@ export const ApplicationsProvider = ({ children }) => {
   const [applications, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await job_applications();
-        dispatch({ type: ACTIONS.VIEW_APPLICATIONS, payload: data });
-      } catch (err) {
-        console.error("Error fetching job applications from firebase:", err);
-        throw err;
+    const fetchData = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log("🔐 User logged in:", user.uid);
+        try {
+          const data = await job_applications();
+          dispatch({ type: ACTIONS.VIEW_APPLICATIONS, payload: data });
+        } catch (err) {
+          console.error("Error fetching job applications from firebase:", err);
+        }
+      } else {
+        console.log("🚪 No user - clearing apps");
+        dispatch({ type: ACTIONS.VIEW_APPLICATIONS, payload: [] });
       }
-    };
-    fetchData();
+    });
+    return () => fetchData();
   }, []);
   return (
     <ApplicationsContext.Provider value={{ applications, dispatch }}>
@@ -29,7 +36,7 @@ export const ACTIONS = {
   VIEW_APPLICATIONS: "view_applications",
   ADD_APPLICATION: "add_application",
   UPDATE_APPLICATION: "update_application",
-  DELETE_APPLICATION: "delete_applicaion",
+  DELETE_APPLICATION: "delete_application",
 };
 
 export const reducer = (applications, action) => {

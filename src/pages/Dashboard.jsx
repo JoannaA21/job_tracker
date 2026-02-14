@@ -48,25 +48,34 @@ const Dashboard = () => {
   if (!user) return null; // Won't reach here due to redirect
 
   return (
-    <div className="min-h-dvh m-6">
-      {/* Header with logout */}
-      <div className="p-6 border-b mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-[#64748b]">Hi, {user.email}</span>
-
+    <div className="min-h-dvh p-3 sm:p-4 md:p-6 md:m-6 w-full overflow-x-hidden">
+      {/* Header - PERFECT BOTH VIEWS */}
+      <div className="p-3 sm:p-4 border-b mb-4 sm:mb-6 w-full">
+        <div className="w-full">
+          {/* MOBILE: Dashboard + Logout same line, email below */}
+          <div className="flex items-center justify-between mb-2 lg:mb-0">
+            <h1 className="text-2xl lg:text-3xl font-bold flex-1">Dashboard</h1>
             <button
               onClick={logout}
-              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-all duration-200"
+              className="px-3 py-1.5 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-all duration-200 whitespace-nowrap"
             >
               Logout
             </button>
           </div>
+
+          {/* Email - below on mobile, inline on desktop */}
+          <div className="flex lg:hidden items-center lg:items-center">
+            <span className="text-[#64748b] text-sm">Hi, {user.email}</span>
+          </div>
+
+          {/* Desktop: Email inline with title + logout */}
+          <div className="hidden lg:flex items-center gap-4 mt-2 lg:mt-0">
+            <span className="text-[#64748b] text-base">Hi, {user.email}</span>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full">
         {/* Add button - fixed styling */}
         <div className="mb-6 flex justify-end">
           <Link

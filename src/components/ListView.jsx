@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router";
 import { useState, useMemo } from "react";
 
-const ListView = ({ applications }) => {
+const ListView = ({ applications = [] }) => {
   const navigate = useNavigate();
   const [statusFilter, setStatusFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
@@ -150,9 +150,17 @@ const ListView = ({ applications }) => {
                 </tr>
               ))
             ) : (
+              /* ✅ NEW EMPTY STATE */
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-gray-500">
-                  No applications match your filter
+                <td
+                  colSpan={5}
+                  className="px-4 py-12 text-center text-gray-500"
+                >
+                  {statusFilter === "all" &&
+                  locationFilter === "all" &&
+                  searchTerm === ""
+                    ? "Add application to get started"
+                    : "No applications match your filter"}
                 </td>
               </tr>
             )}
@@ -227,7 +235,11 @@ const ListView = ({ applications }) => {
           ))
         ) : (
           <div className="p-8 text-center text-gray-500 bg-gray-50 rounded-lg">
-            No applications match your filter
+            {statusFilter === "all" &&
+            locationFilter === "all" &&
+            searchTerm === ""
+              ? "Add application to get started"
+              : "No applications match your filter"}
           </div>
         )}
       </div>

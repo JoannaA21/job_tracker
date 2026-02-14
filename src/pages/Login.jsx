@@ -7,7 +7,6 @@ const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    confirm_password: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -31,10 +30,10 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-    navigate("/");
     try {
       await signInWithEmailAndPassword(auth, user.email, user.password);
       console.log("Login successfully!");
+      navigate("/");
     } catch (err) {
       if (err.code === "auth/user-not-found") {
         setErrors({ email: "No user found with this email." });

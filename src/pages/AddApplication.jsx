@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { add_job_application } from "../api/job_applications";
 import { useNavigate } from "react-router";
 import { ApplicationsContext, ACTIONS } from "../context/ApplicationsContext";
+import { auth } from "../config/firebase";
 
 const AddApplication = () => {
   const [newApplication, setNewApplication] = useState({
@@ -30,9 +31,12 @@ const AddApplication = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    Object.entries(newApplication).forEach(([name, value]) => {
-      form_validation(name, value);
-    });
+    // ✅ 1. VALIDATE FIRST - don't submit if errors
+    const hasErrors = Object.values(errors).some((error) => error);
+    if (hasErrors) {
+      console.log("Validation failed");
+      return; // STOP HERE
+    }
 
     try {
       const newData = await add_job_application(newApplication);
