@@ -132,7 +132,16 @@ const Login = () => {
           </button>
         </form>
 
-        <button onClick={signInWithGoogle}>Sign In with Google</button>
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={signInWithGoogle}
+            disabled={loading}
+            className="bg-white hover:bg-black hover:text-white border-2 border-gray-300 py-4 px-8 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-lg"
+          >
+            Sign In with Google
+          </button>
+        </div>
+
         {/* Login Link */}
         <p className="text-center mt-6 text-sm text-gray-500">
           Don't have an account yet?{" "}
