@@ -1,11 +1,35 @@
 import { useNavigate, Link } from "react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import Pagination from "../components/Pagination";
+
+const useItemsPerPage = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(5); // default mobile
+
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth >= 1024) {
+        // lg breakpoint
+        setItemsPerPage(10); // desktop
+      } else {
+        setItemsPerPage(5); // mobile/tablet
+      }
+    };
+
+    update(); // on mount
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return itemsPerPage;
+};
 
 const ListView = ({ applications = [] }) => {
   const navigate = useNavigate();
   const [statusFilter, setStatusFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(0); // 0-based for react-paginate
+  const itemsPerPage = useItemsPerPage(); //dynamic per breakpoint
 
   //STATUS: For select attribute
   const statusOptions = [
@@ -38,6 +62,20 @@ const ListView = ({ applications = [] }) => {
       return statusMatch && locationMatch && searchMatch;
     });
   }, [applications, statusFilter, locationFilter, searchTerm]);
+
+  // reset page when filters/search change
+  const pageCount = Math.ceil(filteredApplications.length / itemsPerPage);
+  const start = currentPage * itemsPerPage;
+  const currentItems = filteredApplications.slice(start, start + itemsPerPage);
+
+  const handlePageChange = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  // optional: if current page goes out of range after filtering
+  if (currentPage > 0 && start >= filteredApplications.length) {
+    setCurrentPage(0);
+  }
 
   return (
     <div className="mb-6 bg-darkgray p-3 sm:p-4 rounded-lg border border-gray-200">
@@ -103,32 +141,44 @@ const ListView = ({ applications = [] }) => {
           </div>
         </div>
       </div>
-
       {/* Table */}
       <div className="overflow-x-auto lg:overflow-visible">
-        <table className="hidden min-w-full border border-gray-200 text-left text-sm lg:table">
-          <thead className="bg-gray-100">
-            <tr>
+        <table className="hidden min-w-full border border-gray-200 text-left text-lg lg:table">
+          <thead className="bg-gray-200">
+            <tr className="text-xl">
               <th className="px-4 py-2 border-b">Company</th>
               <th className="px-4 py-2 border-b">Role</th>
-              <th className="px-4 py-2 border-b">Status</th>
               <th className="px-4 py-2 border-b">Location</th>
               <th className="px-4 py-2 border-b">Date Applied</th>
+              <th className="px-4 py-2 border-b">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {filteredApplications.length > 0 ? (
               filteredApplications.map((job) => (
                 <tr
                   key={job.id}
-                  className="hover:bg-gray-100 cursor-pointer"
+                  className="hover:bg-light-tangerine cursor-pointer"
                   onClick={() => navigate(`/detailview/${job.id}`)}
                 >
-                  <td className="px-4 py-2 border-b">{job.company}</td>
-                  <td className="px-4 py-2 border-b">{job.role}</td>
+                  <td className="px-4 py-2 border-b capitalize border-gray-300">
+                    {job.company}
+                  </td>
+                  <td className="px-4 py-2 border-b capitalize border-gray-300">
+                    {job.role}
+                  </td>
+
+                  <td className="px-4 py-2 border-b capitalize border-gray-300">
+                    {job.location}
+                  </td>
+                  <td className="px-4 py-2 border-b border-gray-300">
+                    {job.date_applied?.toDate
+                      ? job.date_applied.toDate().toLocaleDateString()
+                      : job.date_applied}
+                  </td>
                   <td
                     className={`
-                      px-4 py-2 border-b font-medium
+                      px-4 py-2 border-b font-medium capitalize border-gray-300
                       ${job.status === "applied" && "bg-blue-100 text-blue-800"} ${
                         job.status === "interview" &&
                         "bg-yellow-100 text-yellow-800"
@@ -138,14 +188,6 @@ const ListView = ({ applications = [] }) => {
                     `}
                   >
                     {job.status}
-                  </td>
-                  <td className="px-4 py-2 border-b capitalize">
-                    {job.location}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {job.date_applied?.toDate
-                      ? job.date_applied.toDate().toLocaleDateString()
-                      : job.date_applied}
                   </td>
                 </tr>
               ))
@@ -167,14 +209,13 @@ const ListView = ({ applications = [] }) => {
           </tbody>
         </table>
       </div>
-
       {/* Mobile Cards */}
       <div className="lg:hidden divide-y divide-gray-200">
-        {filteredApplications.length > 0 ? (
-          filteredApplications.map((job) => (
+        {currentItems.length > 0 ? (
+          currentItems.map((job) => (
             <div
               key={job.id}
-              className="p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 bg-white"
+              className="p-4 rounded-md hover:bg-gray-50 cursor-pointer border-b border-gray-100 bg-white"
               onClick={() => navigate(`/detailview/${job.id}`)}
             >
               {/* Company & Role - Prominent */}
@@ -243,6 +284,10 @@ const ListView = ({ applications = [] }) => {
           </div>
         )}
       </div>
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
+      )}{" "}
     </div>
   );
 };

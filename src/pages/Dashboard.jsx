@@ -23,10 +23,10 @@ const Dashboard = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        // ✅ User is logged in - show dashboard
+        // User is logged in - show dashboard
         setUser(currentUser);
       } else {
-        // ✅ No user - redirect to login
+        // No user - redirect to login
         navigate("/login");
       }
       setLoading(false);
@@ -57,7 +57,7 @@ const Dashboard = () => {
             <h1 className="text-2xl lg:text-3xl font-bold flex-1">Dashboard</h1>
             <button
               onClick={logout}
-              className="px-3 py-1.5 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-all duration-200 whitespace-nowrap"
+              className="px-3 py-1.5 lg:px-4 lg:py-2 text-lg lg:text-base text-gray-500 hover:text-black hover:bg-gray-100 rounded-lg font-medium transition-all duration-200 whitespace-nowrap"
             >
               Logout
             </button>
@@ -65,12 +65,12 @@ const Dashboard = () => {
 
           {/* Email - below on mobile, inline on desktop */}
           <div className="flex lg:hidden items-center lg:items-center">
-            <span className="text-[#64748b] text-sm">Hi, {user.email}</span>
+            <span className="text-gray-500 text-sm">Hi, {user.email}</span>
           </div>
 
           {/* Desktop: Email inline with title + logout */}
           <div className="hidden lg:flex items-center gap-4 mt-2 lg:mt-0">
-            <span className="text-[#64748b] text-base">Hi, {user.email}</span>
+            <span className="text-gray-500 text-lg">Hi, {user.email}</span>
           </div>
         </div>
       </div>
