@@ -1,1 +1,5 @@
-# React + Vite
+# Job Tracker App
+
+## Description
+
+A modern job application tracker built with React, Tailwind CSS, and Firebase. Track your applications, filter by status/location, filter by searching for company/role, and stay organized during your job search.
