@@ -50,7 +50,7 @@ const Signup = () => {
 
     // ✅ Check if passwords match before Firebase call
     if (newUser.password !== newUser.confirm_password) {
-      setErrors({ confirmPassword: "Passwords don't match" });
+      setErrors({ confirm_password: "Passwords don't match" });
       return;
     }
 
@@ -154,7 +154,7 @@ const Signup = () => {
               disabled={loading}
               required
             />
-            {errors.password && (
+            {errors.confirm_password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.confirm_password}
               </p>
