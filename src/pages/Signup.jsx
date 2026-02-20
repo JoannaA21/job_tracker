@@ -21,24 +21,6 @@ const Signup = () => {
       [name]: value,
     });
 
-    // ✅ Validate confirm password match
-    if (name === "confirmPassword") {
-      if (value !== user.password) {
-        setErrors({ ...errors, confirmPassword: "Passwords don't match" });
-      } else {
-        setErrors({ ...errors, confirmPassword: "" });
-      }
-    }
-
-    // ✅ Fixed: Use newUser, not user
-    if (name === "confirm_password") {
-      if (value !== newUser.password) {
-        setErrors({ ...errors, confirm_password: "Passwords don't match" });
-      } else {
-        setErrors({ ...errors, confirm_password: "" });
-      }
-    }
-
     // Clear error when user types
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
