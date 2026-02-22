@@ -6,4 +6,4 @@ A modern job application tracker built with React, Tailwind CSS, and Firebase. T
 
 ## Live Demo
 
-Check it out [Job Tracker App](https://job-tracker-gold-one.vercel.app/)
+Check it out [Job Tracker App](https://japellido-job-tracker.vercel.app/)
