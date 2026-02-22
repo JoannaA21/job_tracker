@@ -74,7 +74,7 @@ const Login = () => {
             />
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
+          <h1 className="text-3xl font-bold mb-2">Job Tracker</h1>
           <p className="text-gray-500">Sign in to your account</p>
         </div>
 
