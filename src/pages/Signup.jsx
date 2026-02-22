@@ -66,17 +66,12 @@ const Signup = () => {
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-tangerine rounded-2xl mx-auto mb-4 shadow-xl flex items-center justify-center">
-            <svg
-              className="w-10 h-10 text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5 9V7a5 5 0 0110 0v4a2 2 0 012 2v2a1 1 0 01-1 1h-1a1 1 0 01-1-1v-2a1 1 0 00-1-1H6a1 1 0 00-1 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a2 2 0 012-2z"
-              />
-            </svg>
+          <div className="w-50 h-50 flex items-center justify-center rounded-full shadow-2xl overflow-hidden mx-auto mb-4">
+            <img
+              src="/logo.png"
+              alt="Job Tracker Logo"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <h1 className="text-3xl font-bold mb-2">Create Account</h1>
         </div>
