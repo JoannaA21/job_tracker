@@ -11,7 +11,7 @@ export const ApplicationsProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("🔐 User logged in:", user.uid);
+        // console.log("🔐 User logged in:", user.uid);
         try {
           const data = await job_applications();
           dispatch({ type: ACTIONS.VIEW_APPLICATIONS, payload: data });

@@ -28,6 +28,7 @@ const ListView = ({ applications = [] }) => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortByDateApplied, setSortByDateApplied] = useState("all"); //sort order of jobs based on date applied
   const [currentPage, setCurrentPage] = useState(0); // 0-based for react-paginate
   const itemsPerPage = useItemsPerPage(); //dynamic per breakpoint
 
@@ -48,9 +49,16 @@ const ListView = ({ applications = [] }) => {
     { value: "hybrid", label: "Hybrid" },
   ];
 
+  //DATE APPLIED: For select attribute
+  const dateAppliedOptions = [
+    { value: "all", label: "Date Applied" },
+    { value: "newest", label: "Newest first" },
+    { value: "oldest", label: "Oldest first" },
+  ];
+
   //For select filter and search filter
   const filteredApplications = useMemo(() => {
-    return applications.filter((job) => {
+    let filtered = applications.filter((job) => {
       const statusMatch = statusFilter === "all" || job.status === statusFilter;
       const locationMatch =
         locationFilter === "all" || job.location === locationFilter;
@@ -61,7 +69,25 @@ const ListView = ({ applications = [] }) => {
         job.role.toLowerCase().includes(searchTerm.toLowerCase());
       return statusMatch && locationMatch && searchMatch;
     });
-  }, [applications, statusFilter, locationFilter, searchTerm]);
+
+    // ✅ STEP 2: Sort filtered results by date
+    return [...filtered].sort((a, b) => {
+      const dateA = new Date(a.date_applied);
+      const dateB = new Date(b.date_applied);
+
+      if (sortByDateApplied === "all") return 0; //Skip sorting when "all" (keep original order)
+
+      return sortByDateApplied === "newest"
+        ? dateB - dateA // Newest first
+        : dateA - dateB; // Oldest first
+    });
+  }, [
+    applications,
+    statusFilter,
+    locationFilter,
+    searchTerm,
+    sortByDateApplied,
+  ]);
 
   // reset page when filters/search change
   const pageCount = Math.ceil(filteredApplications.length / itemsPerPage);
@@ -100,11 +126,14 @@ const ListView = ({ applications = [] }) => {
               Filter by:
             </label>
 
-            {(statusFilter !== "all" || locationFilter !== "all") && (
+            {(statusFilter !== "all" ||
+              locationFilter !== "all" ||
+              sortByDateApplied !== "all") && (
               <button
                 onClick={() => {
                   setStatusFilter("all");
                   setLocationFilter("all");
+                  setSortByDateApplied("all");
                 }}
                 className="text-sm bg-light-tangerine hover:bg-tangerine border-2 border-tangerine rounded-lg font-medium ml-4"
               >
@@ -114,11 +143,23 @@ const ListView = ({ applications = [] }) => {
           </div>
 
           {/* Dropdowns */}
-          <div className="flex gap-4 mb-2">
+          <div className="flex gap-4 mb-2 flex-wrap">
+            <select
+              value={sortByDateApplied}
+              onChange={(e) => setSortByDateApplied(e.target.value)}
+              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine text-sm w-32"
+            >
+              {dateAppliedOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
+              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine text-sm w-32"
             >
               {statusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -130,7 +171,7 @@ const ListView = ({ applications = [] }) => {
             <select
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine w-32"
+              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-tangerine focus:border-tangerine text-sm w-32"
             >
               {locationOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -215,7 +256,7 @@ const ListView = ({ applications = [] }) => {
           currentItems.map((job) => (
             <div
               key={job.id}
-              className="p-4 rounded-md hover:bg-gray-50 cursor-pointer border-b border-gray-100 bg-white"
+              className="p-4 rounded-md mb-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 bg-white"
               onClick={() => navigate(`/detailview/${job.id}`)}
             >
               {/* Company & Role - Prominent */}
